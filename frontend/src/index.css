@@ -1,0 +1,98 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&family=Fredoka:wght@400;500;600;700&display=swap');
+
+:root {
+  --neo-black: #1A1A1A;
+  --neo-white: #FFFFFF;
+  --neo-yellow: #F4C400;
+  --neo-green: #00C896;
+  --neo-red: #FF3A3A;
+  --neo-blue: #3B82F6;
+  --neo-gray: #ECECEC;
+  
+  --neo-border: 5px solid var(--neo-black);
+  --neo-shadow: 10px 10px 0px var(--neo-black);
+  --neo-radius: 30px;
+  --neo-radius-sm: 20px;
+  
+  --font-display: 'Fredoka', sans-serif;
+  --font-body: 'Poppins', sans-serif;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: var(--neo-gray);
+  color: var(--neo-black);
+  font-family: var(--font-body);
+  overflow-x: hidden;
+}
+
+.neo-card {
+  background: var(--neo-white);
+  border: var(--neo-border);
+  border-radius: var(--neo-radius);
+  box-shadow: var(--neo-shadow);
+  padding: 2.5rem;
+  transition: transform 0.1s ease;
+}
+
+.neo-card:hover {
+  transform: translate(-4px, -4px);
+  box-shadow: 14px 14px 0px var(--neo-black);
+}
+
+.neo-headline {
+  font-family: var(--font-display);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+}
+
+.neo-btn {
+  background: var(--neo-yellow);
+  border: var(--neo-border);
+  border-radius: var(--neo-radius-sm);
+  padding: 1.2rem 2.5rem;
+  font-weight: 900;
+  font-family: var(--font-display);
+  cursor: pointer;
+  box-shadow: 5px 5px 0px var(--neo-black);
+  transition: all 0.1s;
+}
+
+.neo-btn:active {
+  transform: translate(3px, 3px);
+  box-shadow: 2px 2px 0px var(--neo-black);
+}
+
+.highlight {
+  background: var(--neo-yellow);
+  padding: 0 10px;
+  display: inline-block;
+}
+
+.input-field {
+  width: 100%;
+  padding: 18px;
+  border: 4px solid var(--neo-black);
+  border-radius: 20px;
+  font-weight: 800;
+  font-family: var(--font-body);
+  margin-top: 8px;
+  background: var(--neo-white);
+}
+
+.loading-state {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: 1.5rem;
+  background: var(--neo-gray);
+}

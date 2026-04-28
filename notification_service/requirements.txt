@@ -1,0 +1,9 @@
+fastapi
+uvicorn
+pydantic
+pydantic-settings
+sendgrid
+reportlab
+python-dotenv
+tenacity
+email-validator

@@ -1,0 +1,51 @@
+{
+    "Sweeteners": {
+        "sugar": { "severity": "High", "impact": "High blood sugar spike risk", "explanation": "Refined sugar triggers rapid insulin response.", "aliases": ["sucrose", "cane sugar", "beet sugar", "refined sugar", "liquid sugar", "sugar syrup"] },
+        "hfcs": { "severity": "Extreme", "impact": "Hepatic fat driver", "explanation": "High Fructose Corn Syrup is linked to fatty liver.", "aliases": ["high fructose corn syrup", "corn syrup", "fructose syrup", "glucose-fructose syrup", "glucose syrup"] },
+        "maltodextrin": { "severity": "High", "impact": "Extremely high GI", "explanation": "Higher glycemic index than table sugar.", "aliases": ["maltodextrine", "polysaccharides"] },
+        "invert sugar": { "severity": "High", "impact": "Rapid absorption", "explanation": "Processed sugar that bypasses early digestion.", "aliases": ["inverted sugar", "invert syrup", "golden syrup", "invert sugar syrup"] },
+        "erythritol": { "severity": "Low", "impact": "Low-calorie sugar alcohol", "explanation": "Generally well-tolerated sugar substitute.", "aliases": ["ins 968", "ins968", "e968"] },
+        "aspartame": { "severity": "High", "impact": "Neuro-metabolic stressor", "explanation": "Artificial sweetener linked to sensitivities.", "aliases": ["ins 951", "ins951", "e951"] },
+        "sucralose": { "severity": "High", "impact": "Insulin response modulator", "explanation": "Synthetic sweetener that can affect glucose metabolism.", "aliases": ["ins 955", "ins955", "e955"] }
+    },
+    "Industrial Fats": {
+        "palm oil": { "severity": "High", "impact": "High saturated fat", "explanation": "Processed oil linked to systemic inflammation.", "aliases": ["palmolein", "refined palmolein", "palm fruit oil", "palm kernel oil", "vegetable fat (palm)", "fractionated palm oil"] },
+        "vegetable oil": { "severity": "Moderate", "impact": "High Omega-6 content", "explanation": "Often highly refined and pro-inflammatory.", "aliases": ["vegetable fat", "refined vegetable oil", "hydrogenated vegetable oil", "hydrogenated vegetable fat"] },
+        "soybean oil": { "severity": "Moderate", "impact": "Pro-inflammatory", "explanation": "Rich in Omega-6; can drive chronic inflammation.", "aliases": ["soy oil", "soya oil", "refined soybean oil"] },
+        "cottonseed oil": { "severity": "High", "impact": "Industrial byproduct oil", "explanation": "High pesticide residue risk.", "aliases": ["refined cottonseed"] },
+        "canola oil": { "severity": "Moderate", "impact": "Highly processed oil", "explanation": "Commonly extracted with solvents.", "aliases": ["rapeseed oil", "refined rapeseed"] }
+    },
+    "Emulsifiers": {
+        "lecithin": { "severity": "Low", "impact": "Neutral stabilizer", "explanation": "Commonly derived from soy or sunflower.", "aliases": ["soy lecithin", "soya lecithin", "sunflower lecithin", "ins 322", "ins.322", "ins322", "e322", "emulsifier 322"] },
+        "modified starch": { "severity": "Moderate", "impact": "High glycemic texturizer", "explanation": "Chemically altered starch; behaves like a fast carb.", "aliases": ["modified maize starch", "modified tapioca starch", "modified potato starch", "ins 1442", "ins1442", "ins 1422", "ins 1422", "e1422", "acetylated distarch adipate", "ins 1422"] },
+        "datem": { "severity": "Moderate", "impact": "Industrial dough conditioner", "explanation": "Diacetyl tartaric acid esters; used to strengthen dough.", "aliases": ["ins 472e", "e472e", "diacetyl tartaric acid esters"] },
+        "xanthan gum": { "severity": "Moderate", "impact": "Potential digestive sensitivity", "explanation": "Bacterial fermentation product; can cause bloating.", "aliases": ["ins 415", "ins415", "e415", "thickener 415"] },
+        "carrageenan": { "severity": "High", "impact": "Intestinal irritant", "explanation": "Seaweed extract linked to gut inflammation.", "aliases": ["ins 407", "ins407", "e407"] },
+        "guar gum": { "severity": "Low", "impact": "Natural thickener", "explanation": "Fiber-like plant extract; generally safe.", "aliases": ["ins 412", "ins412", "e412"] }
+    },
+    "Preservatives": {
+        "sodium benzoate": { "severity": "High", "impact": "Potential cellular stress", "explanation": "Common preservative; can form benzene.", "aliases": ["ins 211", "ins.211", "ins211", "e211", "preservative 211", "benzoate de sodium"] },
+        "potassium sorbate": { "severity": "Moderate", "impact": "Synthetic stabilizer", "explanation": "Prevents mold growth.", "aliases": ["ins 202", "ins.202", "ins202", "e202", "preservative 202", "sorbate de potassium"] },
+        "calcium propionate": { "severity": "Moderate", "impact": "Antifungal agent", "explanation": "Common in bakery products.", "aliases": ["ins 282", "ins282", "e282", "propionate de calcium"] },
+        "sodium nitrite": { "severity": "Extreme", "impact": "Vasodilator/Carcinogen risk", "explanation": "Essential for curing meats; potentially harmful in excess.", "aliases": ["ins 250", "e250"] },
+        "sulfur dioxide": { "severity": "High", "impact": "Respiratory sensitivity risk", "explanation": "Common in dried fruits; can trigger asthma.", "aliases": ["ins 220", "e220", "sulphur dioxide"] },
+        "sodium metabisulfite": { "severity": "High", "impact": "Allergenic potential", "explanation": "Widely used in snacks; potential sulfite sensitivity.", "aliases": ["ins 223", "e223", "sodium metabisulphite"] }
+    },
+    "Additives": {
+        "msg": { "severity": "High", "impact": "Glutamate sensitivity marker", "explanation": "Monosodium glutamate; can cause metabolic friction.", "aliases": ["ins 621", "e621", "monosodium glutamate"] },
+        "flavor enhancer 635": { "severity": "High", "impact": "Excitotoxic potential", "explanation": "Disodium 5-ribonucleotides; intensifies flavors.", "aliases": ["ins 635", "e635", "disodium 5-ribonucleotides"] },
+        "hydrolysed protein": { "severity": "Moderate", "impact": "Processed amino acid load", "explanation": "Used as a flavor enhancer; can contain glutamates.", "aliases": ["hydrolysed groundnut protein", "hydrolysed vegetable protein", "hvp", "hydrolysed wheat protein"] },
+        "sodium polyphosphate": { "severity": "Moderate", "impact": "Industrial stabilizer", "explanation": "Maintains moisture in noodles.", "aliases": ["ins 452", "e452"] },
+        "ammonium bicarbonate": { "severity": "Moderate", "impact": "Industrial leavening", "explanation": "Used for biscuit crispness; releases ammonia.", "aliases": ["ins 503ii", "e503ii"] }
+    },
+    "Natural Ingredients": {
+        "wheat flour": { "severity": "Moderate", "impact": "Refined grain", "explanation": "Stripped of bran and germ; fast digesting.", "aliases": ["refined wheat flour", "maida", "wheat flour", "enriched flour", "bleached flour"] },
+        "whole wheat": { "severity": "Low", "impact": "Complex carbohydrate", "explanation": "Contains fiber and germ; sustained energy.", "aliases": ["whole wheat flour", "atta", "wholemeal"] },
+        "rolled oats": { "severity": "Low", "impact": "Prebiotic fiber source", "explanation": "High in beta-glucan; stabilizes blood sugar.", "aliases": ["oats", "oatmeal", "whole oats"] },
+        "tomato paste": { "severity": "Low", "impact": "Lycopene source", "explanation": "Antioxidant-rich concentrated vegetable base.", "aliases": ["tomato solids", "tomato concentrate"] },
+        "onion powder": { "severity": "Low", "impact": "Natural phytonutrients", "explanation": "Dried vegetable flavoring.", "aliases": ["dehydrated onion", "onion powder"] },
+        "garlic powder": { "severity": "Low", "impact": "Anti-inflammatory seasoning", "explanation": "Dried garlic for natural flavor enhancement.", "aliases": ["dehydrated garlic", "garlic powder"] },
+        "turmeric": { "severity": "Low", "impact": "Curcumin-rich antioxidant", "explanation": "Powerful natural anti-inflammatory spice.", "aliases": ["haldi", "curcuma"] },
+        "milk solids": { "severity": "Low", "impact": "Dairy protein", "explanation": "Natural dairy components.", "aliases": ["skimmed milk powder", "milk powder", "whey protein", "dairy solids"] }
+    }
+}

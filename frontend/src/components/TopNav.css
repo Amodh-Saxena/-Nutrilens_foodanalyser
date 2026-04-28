@@ -1,0 +1,90 @@
+.top-navbar {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90%;
+  max-width: 1400px;
+  height: 70px;
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  border-radius: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 30px;
+  z-index: 1000;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+}
+
+.brand {
+  font-family: 'Fredoka', sans-serif;
+  font-weight: 800;
+  font-size: 1.5rem;
+  color: #1A1A1A;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.nav-links {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+}
+
+.nav-btn {
+  padding: 8px 18px;
+  border-radius: 12px;
+  font-weight: 700;
+  font-size: 0.9rem;
+  border: none;
+  background: transparent;
+  color: #666;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.nav-btn:hover {
+  background: rgba(0,0,0,0.05);
+  color: #1A1A1A;
+}
+
+.nav-btn-cta {
+  background: #F4C400;
+  color: #1A1A1A;
+  border: 2px solid #1A1A1A;
+  padding: 8px 24px;
+  border-radius: 12px;
+  font-weight: 800;
+  box-shadow: 4px 4px 0 #1A1A1A;
+  transition: all 0.1s;
+}
+
+.nav-btn-cta:active {
+  transform: translate(2px, 2px);
+  box-shadow: 2px 2px 0 #1A1A1A;
+}
+
+.nav-btn-danger {
+  color: #FF3A3A;
+  font-weight: 800;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+@media (max-width: 768px) {
+  .top-navbar {
+    width: 95%;
+    padding: 0 15px;
+  }
+  .nav-btn { padding: 8px 10px; font-size: 0.8rem; }
+}

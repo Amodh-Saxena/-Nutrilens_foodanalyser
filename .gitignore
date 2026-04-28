@@ -1,0 +1,21 @@
+# Dependencies
+node_modules/
+.env
+
+# Firebase credentials (NEVER commit these)
+backend/config/firebase-service-account.json
+
+# Build outputs
+frontend/build/
+frontend/dist/
+
+# Uploads folder (user data)
+backend/uploads/
+
+# Logs
+*.log
+npm-debug.log*
+
+# OS files
+.DS_Store
+Thumbs.db

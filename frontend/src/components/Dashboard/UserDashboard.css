@@ -1,0 +1,95 @@
+/* ============================================
+   NEO-BRUTALIST DASHBOARD STYLES (EARLIEST)
+   ============================================ */
+
+.dashboard-container {
+  padding: 60px 5%;
+  max-width: 1600px;
+  margin: 0 auto;
+}
+
+.dashboard-header {
+  margin-bottom: 60px;
+}
+
+.dashboard-main-grid {
+  display: grid;
+  grid-template-columns: 1fr 400px;
+  gap: 40px;
+}
+
+.telemetry-column {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.chart-container {
+  height: 450px;
+  width: 100%;
+  margin-top: 20px;
+}
+
+.bottom-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+}
+
+.score-ring-container {
+  position: relative;
+  width: 140px;
+  height: 140px;
+  margin: 0 auto;
+}
+
+.score-ring-svg {
+  width: 140px;
+  height: 140px;
+}
+
+.history-card {
+  display: flex;
+  background: #FFF;
+  border: 3px solid #1A1A1A;
+  border-radius: 20px;
+  overflow: hidden;
+  margin-bottom: 15px;
+}
+
+.heatmap-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 10px;
+}
+
+.heat-cell {
+  aspect-ratio: 1;
+  border: 2px solid #1A1A1A;
+  border-radius: 8px;
+}
+
+.btn {
+  padding: 15px 25px;
+  border: 4px solid #1A1A1A;
+  border-radius: 20px;
+  font-weight: 900;
+  cursor: pointer;
+  box-shadow: 6px 6px 0px #1A1A1A;
+  transition: all 0.1s;
+}
+
+.btn:active {
+  transform: translate(3px, 3px);
+  box-shadow: 2px 2px 0px #1A1A1A;
+}
+
+.btn-primary {
+  background: #F4C400;
+}
+
+@media (max-width: 1200px) {
+  .dashboard-main-grid {
+    grid-template-columns: 1fr;
+  }
+}
