@@ -106,10 +106,22 @@ exports.predictMetabolicScore = async (req, res) => {
             }
         });
 
-        const dailyFoodStress = scanCount > 0 ? (totalStress / scanCount) : 30;
+        const dailyFoodStress = scanCount > 0 ? (totalStress / scanCount) : 30;  // Ns
 
-        // 2. Overall Metabolic Health Index (MHI) - Penalizes purely on dietary toxicity
-        const metabolicHealthIndex = 100 - (dailyFoodStress * 0.5);
+        // 2. Lifestyle Stress Score (LSS) — Scientific Formula
+        // Ls = ((8 - Sh)^2 × 2) + ((5 - El) × 6)
+        const sleepHours  = logData.sleepHours  || 7;      // Sh — hours slept
+        const exerciseLevel = logData.exerciseLevel || 2;  // El — 0-5 activity level
+
+        const sleepPenalty    = Math.pow(8 - sleepHours, 2) * 2;  // Quadratic sleep debt
+        const exercisePenalty = Math.max(0, (5 - exerciseLevel)) * 6; // Linear inactivity cost
+        const lifestyleStressScore = Math.max(0, Math.min(100, sleepPenalty + exercisePenalty));
+
+        // 3. Core MHI Formula
+        // MHI = 100 - (0.4 × Ns + 0.1 × Ls)
+        const metabolicHealthIndex = Math.max(0, Math.min(100,
+            100 - ((dailyFoodStress * 0.4) + (lifestyleStressScore * 0.1))
+        ));
 
         const sanitize = (val) => {
             const num = Number(val);
@@ -117,9 +129,10 @@ exports.predictMetabolicScore = async (req, res) => {
         };
 
         const updateData = { 
-            dailyFoodStress: sanitize(dailyFoodStress),
+            dailyFoodStress:      sanitize(dailyFoodStress),
+            lifestyleStressScore: sanitize(lifestyleStressScore),
             metabolicHealthIndex: sanitize(metabolicHealthIndex),
-            predictedScore: sanitize(metabolicHealthIndex)
+            predictedScore:       sanitize(metabolicHealthIndex)
         };
         
         await db.collection('dailyLogs').doc(logId).update(updateData);

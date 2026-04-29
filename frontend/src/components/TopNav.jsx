@@ -43,6 +43,14 @@ const TopNav = () => {
               📊 Dashboard
             </button>
 
+            <button
+              id="nav-guide-btn"
+              className="nav-btn"
+              onClick={() => navigate('/guide')}
+            >
+              📖 Guide
+            </button>
+
             {location.pathname === '/dashboard' && (
               <button
                 id="nav-formulas-btn"

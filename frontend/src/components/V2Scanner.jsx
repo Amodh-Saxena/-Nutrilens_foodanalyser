@@ -1,7 +1,9 @@
 import React, { useState, useRef } from 'react';
 import { motion } from 'framer-motion';
 import Tesseract from 'tesseract.js';
-import { Upload, Activity, AlertTriangle, CheckCircle, Shield, Droplet } from 'lucide-react';
+import { Upload, Activity, AlertTriangle, CheckCircle, Shield, Droplet, Camera, Download } from 'lucide-react';
+import html2canvas from 'html2canvas';
+import { jsPDF } from 'jspdf';
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip, Legend, BarChart, Bar, XAxis, YAxis, CartesianGrid } from 'recharts';
 
 // Frontend Intelligence Database (Expanded Dataset)
@@ -119,7 +121,48 @@ const V2Scanner = () => {
   const [status, setStatus] = useState('IDLE');
   const [progress, setProgress] = useState('');
   const [results, setResults] = useState(null);
+  const [isCameraOpen, setIsCameraOpen] = useState(false);
   const fileInputRef = useRef(null);
+  const videoRef = useRef(null);
+  const streamRef = useRef(null);
+
+  const startCamera = async () => {
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' } });
+      streamRef.current = stream;
+      setIsCameraOpen(true);
+      setTimeout(() => {
+        if (videoRef.current) {
+          videoRef.current.srcObject = stream;
+          videoRef.current.play();
+        }
+      }, 100);
+    } catch (err) {
+      console.error(err);
+      alert('Camera access denied or unavailable.');
+    }
+  };
+
+  const stopCamera = () => {
+    if (streamRef.current) {
+      streamRef.current.getTracks().forEach(track => track.stop());
+    }
+    setIsCameraOpen(false);
+  };
+
+  const takeSnapshot = () => {
+    if (!videoRef.current) return;
+    const canvas = document.createElement('canvas');
+    canvas.width = videoRef.current.videoWidth;
+    canvas.height = videoRef.current.videoHeight;
+    const ctx = canvas.getContext('2d');
+    ctx.drawImage(videoRef.current, 0, 0);
+    canvas.toBlob((blob) => {
+      const file = new File([blob], 'snapshot.jpg', { type: 'image/jpeg' });
+      stopCamera();
+      handleScan(file);
+    }, 'image/jpeg');
+  };
 
   const handleScan = async (file) => {
     setStatus('SCANNING');
@@ -173,6 +216,22 @@ const V2Scanner = () => {
     }
   };
 
+  const downloadPDF = () => {
+    const element = document.getElementById('scanner-report');
+    if (!element) return;
+    
+    // Quick toast or indication can be added here if needed
+    html2canvas(element, { scale: 2, useCORS: true, backgroundColor: '#F4F6F8' }).then((canvas) => {
+      const imgData = canvas.toDataURL('image/png');
+      const pdf = new jsPDF('p', 'mm', 'a4');
+      const pdfWidth = pdf.internal.pageSize.getWidth();
+      const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
+      
+      pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
+      pdf.save('NutriLens_Scan_Report.pdf');
+    });
+  };
+
   const renderInfographic = () => {
     if (!results) return null;
 
@@ -208,7 +267,7 @@ const V2Scanner = () => {
     ];
 
     return (
-      <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} style={{ padding: '20px', paddingBottom: '100px' }}>
+      <motion.div id="scanner-report" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} style={{ padding: '20px', paddingBottom: '100px', background: '#F4F6F8' }}>
         
         {/* HEADER INFOGRAPHIC */}
         <div style={{ textAlign: 'center', marginBottom: '30px' }}>
@@ -413,9 +472,12 @@ const V2Scanner = () => {
             </div>
         </div>
 
-        <div style={{ textAlign: 'center', marginTop: '50px' }}>
+        <div style={{ textAlign: 'center', marginTop: '50px', display: 'flex', justifyContent: 'center', gap: '20px' }} className="no-print">
           <button onClick={() => setStatus('IDLE')} style={{ background: '#1A1A1A', color: '#FFF', padding: '18px 50px', borderRadius: '50px', fontWeight: 900, border: 'none', cursor: 'pointer', fontSize: '1.2rem', boxShadow: '0 10px 30px rgba(0,0,0,0.15)', transition: 'transform 0.2s' }} onMouseOver={e => e.currentTarget.style.transform = 'scale(1.05)'} onMouseOut={e => e.currentTarget.style.transform = 'scale(1)'}>
             SCAN NEW LABEL
+          </button>
+          <button onClick={downloadPDF} style={{ background: '#FFF', color: '#1A1A1A', padding: '18px 40px', borderRadius: '50px', fontWeight: 900, border: '3px solid #1A1A1A', cursor: 'pointer', fontSize: '1.2rem', boxShadow: '0 10px 30px rgba(0,0,0,0.05)', transition: 'all 0.2s', display: 'flex', alignItems: 'center', gap: '10px' }} onMouseOver={e => { e.currentTarget.style.transform = 'scale(1.05)'; e.currentTarget.style.background = '#1A1A1A'; e.currentTarget.style.color = '#FFF'; }} onMouseOut={e => { e.currentTarget.style.transform = 'scale(1)'; e.currentTarget.style.background = '#FFF'; e.currentTarget.style.color = '#1A1A1A'; }}>
+            <Download size={24} /> EXPORT PDF
           </button>
         </div>
       </motion.div>
@@ -431,32 +493,48 @@ const V2Scanner = () => {
             <h1 style={{ fontSize: '4rem', fontWeight: 900, marginBottom: '15px', color: '#1A1A1A', letterSpacing: '-1.5px' }}>NutriLens V2</h1>
             <p style={{ fontSize: '1.3rem', opacity: 0.6, marginBottom: '60px', fontWeight: 500 }}>High-Fidelity Optical Metabolic Scanner</p>
             
-            <div style={{ display: 'flex', justifyContent: 'center', gap: '30px', flexWrap: 'wrap' }}>
+            <div style={{ display: 'flex', justifyContent: 'center', gap: '20px', flexWrap: 'wrap' }}>
+              {/* UPLOAD FILE */}
               <div 
                 onClick={() => fileInputRef.current?.click()}
-                style={{ background: '#FFF', padding: '50px', borderRadius: '30px', boxShadow: '0 15px 40px rgba(0,0,0,0.06)', cursor: 'pointer', width: '320px', transition: 'transform 0.2s' }}
+                style={{ background: '#FFF', padding: '40px', borderRadius: '30px', boxShadow: '0 15px 40px rgba(0,0,0,0.06)', cursor: 'pointer', width: '280px', transition: 'transform 0.2s' }}
                 onMouseOver={e => e.currentTarget.style.transform = 'translateY(-10px)'}
                 onMouseOut={e => e.currentTarget.style.transform = 'translateY(0)'}
               >
                 <div style={{ background: '#1A1A1A', width: '80px', height: '80px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 25px' }}>
                   <Upload color="#FFF" size={36} />
                 </div>
-                <h3 style={{ fontWeight: 900, fontSize: '1.3rem', color: '#1A1A1A' }}>UPLOAD LABEL</h3>
-                <p style={{ color: '#888', fontWeight: 500, fontSize: '0.95rem', margin: '10px 0 0 0' }}>Extract data from a photo</p>
+                <h3 style={{ fontWeight: 900, fontSize: '1.2rem', color: '#1A1A1A' }}>UPLOAD IMAGE</h3>
+                <p style={{ color: '#888', fontWeight: 500, fontSize: '0.9rem', margin: '10px 0 0 0' }}>Select from gallery</p>
                 <input type="file" ref={fileInputRef} onChange={(e) => e.target.files[0] && handleScan(e.target.files[0])} style={{ display: 'none' }} accept="image/*" />
               </div>
 
+              {/* SYSTEM CAMERA */}
+              <div 
+                onClick={startCamera}
+                style={{ background: '#FFF', padding: '40px', borderRadius: '30px', boxShadow: '0 15px 40px rgba(0,0,0,0.06)', cursor: 'pointer', width: '280px', transition: 'transform 0.2s', border: '3px solid #00C853' }}
+                onMouseOver={e => e.currentTarget.style.transform = 'translateY(-10px)'}
+                onMouseOut={e => e.currentTarget.style.transform = 'translateY(0)'}
+              >
+                <div style={{ background: '#00C853', width: '80px', height: '80px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 25px' }}>
+                  <Camera color="#FFF" size={36} />
+                </div>
+                <h3 style={{ fontWeight: 900, fontSize: '1.2rem', color: '#1A1A1A' }}>SYSTEM CAMERA</h3>
+                <p style={{ color: '#888', fontWeight: 500, fontSize: '0.9rem', margin: '10px 0 0 0' }}>Take photo of label</p>
+              </div>
+
+              {/* MOCK DATA */}
               <div 
                 onClick={() => handleScan('MOCK')}
-                style={{ background: '#FFF', padding: '50px', borderRadius: '30px', boxShadow: '0 15px 40px rgba(0,0,0,0.06)', cursor: 'pointer', border: '3px solid #F4C400', width: '320px', transition: 'transform 0.2s' }}
+                style={{ background: '#FFF', padding: '40px', borderRadius: '30px', boxShadow: '0 15px 40px rgba(0,0,0,0.06)', cursor: 'pointer', border: '3px solid #F4C400', width: '280px', transition: 'transform 0.2s' }}
                 onMouseOver={e => e.currentTarget.style.transform = 'translateY(-10px)'}
                 onMouseOut={e => e.currentTarget.style.transform = 'translateY(0)'}
               >
                 <div style={{ background: '#F4C400', width: '80px', height: '80px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 25px' }}>
                   <Activity color="#1A1A1A" size={36} />
                 </div>
-                <h3 style={{ fontWeight: 900, fontSize: '1.3rem', color: '#1A1A1A' }}>RUN DIAGNOSTIC</h3>
-                <p style={{ color: '#888', fontWeight: 500, fontSize: '0.95rem', margin: '10px 0 0 0' }}>Test with simulated data</p>
+                <h3 style={{ fontWeight: 900, fontSize: '1.2rem', color: '#1A1A1A' }}>RUN DIAGNOSTIC</h3>
+                <p style={{ color: '#888', fontWeight: 500, fontSize: '0.9rem', margin: '10px 0 0 0' }}>Test with simulated data</p>
               </div>
             </div>
           </motion.div>
@@ -470,6 +548,22 @@ const V2Scanner = () => {
         )}
 
         {status === 'DONE' && renderInfographic()}
+
+        {/* LIVE CAMERA OVERLAY */}
+        {isCameraOpen && (
+          <div style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.9)', zIndex: 1000, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
+            <h2 style={{ color: '#FFF', fontWeight: 900, marginBottom: '20px', letterSpacing: '1px' }}>ALIGN LABEL IN FRAME</h2>
+            <div style={{ width: '90%', maxWidth: '500px', borderRadius: '24px', overflow: 'hidden', border: '4px solid #00C853', boxShadow: '0 0 40px rgba(0, 200, 83, 0.4)' }}>
+              <video ref={videoRef} style={{ width: '100%', display: 'block' }} playsInline muted />
+            </div>
+            <div style={{ display: 'flex', gap: '20px', marginTop: '30px' }}>
+              <button onClick={stopCamera} style={{ background: 'transparent', color: '#FFF', border: '2px solid #FFF', padding: '15px 30px', borderRadius: '50px', fontWeight: 900, fontSize: '1.1rem', cursor: 'pointer' }}>CANCEL</button>
+              <button onClick={takeSnapshot} style={{ background: '#00C853', color: '#FFF', border: 'none', padding: '15px 40px', borderRadius: '50px', fontWeight: 900, fontSize: '1.1rem', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '10px' }}>
+                <Camera size={24} /> CAPTURE
+              </button>
+            </div>
+          </div>
+        )}
 
       </div>
     </div>

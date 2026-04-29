@@ -6,28 +6,35 @@
   width: 90%;
   max-width: 1400px;
   height: 70px;
-  background: rgba(255, 255, 255, 0.7);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.4);
+  background: #FFF;
+  border: 4px solid #1A1A1A;
   border-radius: 20px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 0 30px;
   z-index: 1000;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+  box-shadow: 6px 6px 0px #1A1A1A;
+  transition: all 0.3s ease;
 }
 
 .brand {
   font-family: 'Fredoka', sans-serif;
-  font-weight: 800;
-  font-size: 1.5rem;
+  font-weight: 900;
+  font-size: 1.6rem;
   color: #1A1A1A;
   cursor: pointer;
   display: flex;
   align-items: center;
   gap: 8px;
+  padding: 4px 12px;
+  border-radius: 12px;
+  transition: all 0.2s;
+}
+
+.brand:hover {
+  background: #F4C400;
+  transform: translateY(-2px);
 }
 
 .nav-links {
@@ -39,11 +46,11 @@
 .nav-btn {
   padding: 8px 18px;
   border-radius: 12px;
-  font-weight: 700;
-  font-size: 0.9rem;
-  border: none;
+  font-weight: 800;
+  font-size: 0.95rem;
+  border: 2px solid transparent;
   background: transparent;
-  color: #666;
+  color: #1A1A1A;
   cursor: pointer;
   transition: all 0.2s;
   display: flex;
@@ -52,19 +59,29 @@
 }
 
 .nav-btn:hover {
-  background: rgba(0,0,0,0.05);
-  color: #1A1A1A;
+  background: #E8F5E9;
+  border: 2px solid #1A1A1A;
+  box-shadow: 3px 3px 0px #1A1A1A;
+  transform: translateY(-2px);
 }
 
 .nav-btn-cta {
-  background: #F4C400;
-  color: #1A1A1A;
-  border: 2px solid #1A1A1A;
+  background: #00C896;
+  color: #FFF;
+  border: 3px solid #1A1A1A;
   padding: 8px 24px;
   border-radius: 12px;
-  font-weight: 800;
+  font-weight: 900;
+  font-size: 0.95rem;
   box-shadow: 4px 4px 0 #1A1A1A;
   transition: all 0.1s;
+  cursor: pointer;
+}
+
+.nav-btn-cta:hover {
+  background: #00E6AD;
+  transform: translateY(-2px);
+  box-shadow: 6px 6px 0 #1A1A1A;
 }
 
 .nav-btn-cta:active {
@@ -74,17 +91,30 @@
 
 .nav-btn-danger {
   color: #FF3A3A;
-  font-weight: 800;
-  background: transparent;
-  border: none;
+  font-weight: 900;
+  background: #FFF1F0;
+  border: 2px solid #FF3A3A;
+  padding: 8px 16px;
+  border-radius: 12px;
   cursor: pointer;
   font-size: 0.9rem;
+  transition: all 0.2s;
+}
+
+.nav-btn-danger:hover {
+  background: #FF3A3A;
+  color: #FFF;
+  border-color: #1A1A1A;
+  box-shadow: 3px 3px 0px #1A1A1A;
+  transform: translateY(-2px);
 }
 
 @media (max-width: 768px) {
   .top-navbar {
     width: 95%;
     padding: 0 15px;
+    height: 60px;
   }
-  .nav-btn { padding: 8px 10px; font-size: 0.8rem; }
+  .nav-btn { padding: 6px 10px; font-size: 0.8rem; }
+  .brand { font-size: 1.3rem; }
 }

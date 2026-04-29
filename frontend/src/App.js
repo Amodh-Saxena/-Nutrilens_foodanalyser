@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Routes, Route, Navigate, useLocation } from 'react-router-dom';
+import { Routes, Route, Navigate, useLocation, useNavigate } from 'react-router-dom';
 import AnimatedStory from './components/AnimatedStory';
 import StoryFlow from './components/StoryFlow';
 import LoginRegister from './components/Auth/LoginRegister';
@@ -9,6 +9,7 @@ import Onboarding from './components/Onboarding/Onboarding';
 import FormulaGuide from './components/Dashboard/FormulaGuide';
 import IngredientLogView from './components/IngredientLogView';
 import V2Scanner from './components/V2Scanner';
+import UserGuide from './components/UserGuide';
 
 function App() {
   const [authState, setAuthState] = useState({
@@ -17,6 +18,7 @@ function App() {
   });
 
   const location = useLocation();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const syncAuth = () => {
@@ -54,7 +56,7 @@ function App() {
         
         <Route 
           path="/" 
-          element={isAuthenticated ? <Navigate to="/scan" /> : <Navigate to="/auth" />} 
+          element={<AnimatedStory onComplete={() => navigate(isAuthenticated ? '/scan' : '/auth')} />} 
         />
 
         <Route 
@@ -70,6 +72,11 @@ function App() {
         <Route 
           path="/logs" 
           element={isAuthenticated ? <IngredientLogView /> : <Navigate to="/auth" />} 
+        />
+
+        <Route 
+          path="/guide" 
+          element={isAuthenticated ? <UserGuide /> : <Navigate to="/auth" />} 
         />
         
         <Route path="*" element={<Navigate to="/" replace />} />
